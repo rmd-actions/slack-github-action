@@ -18,15 +18,29 @@ Information on setting up and configuring mocked events can be found in [`.githu
 
 ### Testing
 
-When testing locally, ensure at least linting and unit tests pass by running `npm test`.
-Additionally, sending a PR is highly recommended with every change as there are several GitHub
-Actions jobs that execute what are effectively integration tests for this GitHub Action.
+Expected behaviors are confirmed with both unit tests and integration tests. Our unit tests run fast without secrets, while integration tests use webhooks and tokens for sending data to Slack across various techniques.
 
-#### Checks on PRs
+#### Unit tests
 
-Actions that run the integration tests on PRs from a fork will require approval before running.
-These checks use stored secrets so the changes should be reviewed before approving the workflow to
-avoid accidently leaking tokens!
+Run the following scripts to confirm tests pass before opening a PR:
+
+```sh
+$ npm test       # Unit tests
+$ npm run lint   # Lint and format
+$ npm run check  # Typecheck
+```
+
+The `test.yml` workflow runs these scripts for pull requests and changes to the `main` branch.
+
+#### Integration tests
+
+The `integration.yml` workflow uses this action in interactions with Slack using secrets saved to the `staging` environment.
+
+A PR from a forked branch will fail this workflow until a maintainer reviews the code and [dispatches](https://github.com/slackapi/slack-github-action/actions/workflows/integration.yml) a test run that points to the most recent commit using the following format:
+
+```
+pull/<NUMBER>/head
+```
 
 ### Releasing
 
@@ -90,18 +104,17 @@ After a major version increment, there also may be maintenance branches created 
 
 Labels are used to run issues through an organized workflow. Here are the basic definitions:
 
-*  `bug`: A confirmed bug report. A bug is considered confirmed when reproduction steps have been
-   documented and the issue has been reproduced.
-*  `enhancement`: A feature request for something this package might not already do.
-*  `docs`: An issue that is purely about documentation work.
-*  `tests`: An issue that is purely about testing work.
-*  `needs feedback`: An issue that may have claimed to be a bug but was not reproducible, or was otherwise missing some information.
-*  `discussion`: An issue that is purely meant to hold a discussion. Typically the maintainers are looking for feedback in this issues.
-*  `question`: An issue that is like a support request because the user's usage was not correct.
-*  `semver:major|minor|patch`: Metadata about how resolving this issue would affect the version number.
-*  `security`: An issue that has special consideration for security reasons.
-*  `good first contribution`: An issue that has a well-defined relatively-small scope, with clear expectations. It helps when the testing approach is also known.
-*  `duplicate`: An issue that is functionally the same as another issue. Apply this only if you've linked the other issue by number.
+- `bug`: A confirmed bug report. A bug is considered confirmed when reproduction steps have been documented and the issue has been reproduced.
+- `enhancement`: A feature request for something this package might not already do.
+- `docs`: An issue that is purely about documentation work.
+- `tests`: An issue that is purely about testing work.
+- `needs feedback`: An issue that may have claimed to be a bug but was not reproducible, or was otherwise missing some information.
+- `discussion`: An issue that is purely meant to hold a discussion. Typically the maintainers are looking for feedback in this issues.
+- `question`: An issue that is like a support request because the user's usage was not correct.
+- `semver:major|minor|patch`: Metadata about how resolving this issue would affect the version number.
+- `security`: An issue that has special consideration for security reasons.
+- `good first contribution`: An issue that has a well-defined relatively-small scope, with clear expectations. It helps when the testing approach is also known.
+- `duplicate`: An issue that is functionally the same as another issue. Apply this only if you've linked the other issue by number.
 
 **Triage** is the process of taking new issues that aren't yet "seen" and marking them with a basic
 level of information with labels. An issue should have **one** of the following labels applied:
@@ -114,10 +127,10 @@ relevant once again, reopening is great and better than creating a duplicate iss
 
 This repo contains two types of docs files:
 
-* markdown files
-* sidebar.json
+- markdown files
+- sidebar.json
 
-The private repo containing the tools.slack.dev site pulls these in at build time.
+The private repo containing the docs.slack.dev site pulls these in at build time.
 
 Maintainers need to use the `run workflow` button associated with the `deploy` workflow in that private repo to update the docs with changes from here.
 
