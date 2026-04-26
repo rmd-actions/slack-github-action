@@ -10,7 +10,7 @@ The `errors` option defaults to `false` so failed requests do not cause the step
 
 ```yaml
 - name: Attempt to call an unknown method
-  uses: slackapi/slack-github-action@v3.0.1
+  uses: slackapi/slack-github-action@v3.0.2
   with:
     errors: true
     method: chat.reverse
@@ -21,30 +21,13 @@ The `errors` option defaults to `false` so failed requests do not cause the step
 
 Invalid inputs to the GitHub Action, such as not including a payload, will always cause the GitHub step to fail.
 
-## Flattening nested payloads
-
-Variables and data provided in the payload might contain nested fields that need to be flattened before being sent with a [webhook trigger](/tools/slack-github-action/sending-techniques/sending-data-webhook-slack-workflow) to match the expected input format of [Workflow Builder](https://slack.com/features/workflow-automation).
-
-The `payload-delimiter` option will flatten the input payload using the provided delimiter and will also make values stringified:
-
-```yaml
-- name: Flatten the default GitHub payload
-  uses: slackapi/slack-github-action@v3.0.1
-  with:
-    payload-delimiter: "_"
-    webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-    webhook-type: webhook-trigger
-```
-
-Reference to the flattening implementation is available for exploration from within the [`flat`](https://www.npmjs.com/package/flat) package.
-
 ## Parsing templated variables
 
 Additional variables provided in the GitHub event [context](https://github.com/actions/toolkit/blob/main/packages/github/src/context.ts#L6) and event [payload](https://docs.github.com/en/webhooks/webhook-events-and-payloads) can be used to replace templated variables in the input payload with the `payload-templated` option:
 
 ```yaml
 - name: Send custom JSON data to Slack workflow
-  uses: slackapi/slack-github-action@v3.0.1
+  uses: slackapi/slack-github-action@v3.0.2
   with:
     payload-file-path: "./payload-slack-content.json"
     payload-templated: true
@@ -60,7 +43,7 @@ If you need to use a proxy to connect to Slack, you can use the `proxy` option. 
 
 ```yaml
 - name: Post to a Slack channel via a proxy
-  uses: slackapi/slack-github-action@v3.0.1
+  uses: slackapi/slack-github-action@v3.0.2
   with:
     method: chat.postMessage
     proxy: "http://proxy.example.org:8080" # Change this to a custom value
@@ -85,7 +68,7 @@ The `retries` option can be configured to the needs of your workflow with one of
 
 ```yaml
 - name: Attempt a burst of requests
-  uses: slackapi/slack-github-action@v3.0.1
+  uses: slackapi/slack-github-action@v3.0.2
   with:
     method: chat.postMessage
     retries: RAPID
@@ -103,7 +86,7 @@ In certain circumstances, such as testing the sent payload, a [custom API URL](/
 
 ```yaml
 - name: Send to a custom API URL
-  uses: slackapi/slack-github-action@v3.0.1
+  uses: slackapi/slack-github-action@v3.0.2
   with:
     api: http://localhost:8080
     method: chat.postMessage
