@@ -26,7 +26,7 @@ jobs:
           exit 1
 
       - name: "build: checkout the latest changes"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false
           ref: ${{ inputs.ref || github.event.pull_request.head.sha || github.sha }}
@@ -102,6 +102,24 @@ jobs:
         run: test -n "$MESSAGE_OUTPUT_TS"
         env:
           MESSAGE_OUTPUT_TS: ${{ steps.message.outputs.ts }}
+
+      - name: "test(api): post a multiline message" # https://github.com/slackapi/slack-github-action/issues/637
+        id: multiline
+        uses: ./
+        with:
+          errors: true
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: ${{ secrets.SLACK_CHANNEL_ID }}
+            text: ":checkered_flag: A multiline message wraps across lines
+
+            with a blank line before <https://github.com/${{ github.repository }}|a link>"
+
+      - name: "test(api): confirm the multiline message was posted"
+        run: test -n "$MULTILINE_OUTPUT_TS"
+        env:
+          MULTILINE_OUTPUT_TS: ${{ steps.multiline.outputs.ts }}
 
       - name: "test(api): post a message with blocks"
         id: blocks
@@ -263,7 +281,7 @@ jobs:
       contents: read
     steps:
       - name: "build: checkout the latest changes"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false
           ref: ${{ inputs.ref || github.event.pull_request.head.sha || github.sha }}

@@ -25,7 +25,7 @@ Posting a message with the [`chat.postMessage`](/reference/methods/chat.postMess
 
 ```yaml
 - name: Post text to a Slack channel
-  uses: slackapi/slack-github-action@v3.0.3
+  uses: slackapi/slack-github-action@v3.0.5
   with:
     method: chat.postMessage
     token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -40,7 +40,7 @@ More complex message layouts, such as messages made with [Block Kit](/block-kit/
 
 ```yaml
 - name: Post blocks to a Slack channel
-  uses: slackapi/slack-github-action@v3.0.3
+  uses: slackapi/slack-github-action@v3.0.5
   with:
     method: chat.postMessage
     token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -61,7 +61,7 @@ Updating a message after it's posted can be done with the [`chat.update`](/refer
 ```yaml
 - name: Initiate the deployment launch sequence
   id: launch_sequence
-  uses: slackapi/slack-github-action@v3.0.3
+  uses: slackapi/slack-github-action@v3.0.5
   with:
     method: chat.postMessage
     token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -77,7 +77,7 @@ Updating a message after it's posted can be done with the [`chat.update`](/refer
 - name: Countdown until launch
   run: sleep 10
 - name: Update the original message with success
-  uses: slackapi/slack-github-action@v3.0.3
+  uses: slackapi/slack-github-action@v3.0.5
   with:
     method: chat.update
     token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -99,7 +99,7 @@ Posting [threaded replies to a message](/messaging/#threading) from a past job c
 
 ```yaml
 - name: Initiate a deployment
-  uses: slackapi/slack-github-action@v3.0.3
+  uses: slackapi/slack-github-action@v3.0.5
   id: deployment_message
   with:
     method: chat.postMessage
@@ -108,7 +108,7 @@ Posting [threaded replies to a message](/messaging/#threading) from a past job c
       channel: ${{ secrets.SLACK_CHANNEL_ID }}
       text: "Deployment started :eyes:"
 - name: Conclude the deployment
-  uses: slackapi/slack-github-action@v3.0.3
+  uses: slackapi/slack-github-action@v3.0.5
   with:
     method: chat.postMessage
     token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -123,8 +123,10 @@ Posting [threaded replies to a message](/messaging/#threading) from a past job c
 Calling [a Slack API method](/reference/methods) with [`@slack/web-api`](/tools/node-slack-sdk/web-api/) makes [uploading a file](/messaging/working-with-files#uploading_files) just another API call with all of the convenience of the [`files.uploadV2`](/tools/node-slack-sdk/web-api/#upload-a-file) method:
 
 ```yaml
+- name: Checkout an imagined project
+  uses: actions/checkout@v7
 - name: Share a file to that channel
-  uses: slackapi/slack-github-action@v3.0.3
+  uses: slackapi/slack-github-action@v3.0.5
   with:
     method: files.uploadV2
     token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -134,6 +136,8 @@ Calling [a Slack API method](/reference/methods) with [`@slack/web-api`](/tools/
       file: "./path/to/results.out"
       filename: "results-${{ github.sha }}.out"
 ```
+
+The [checkout](https://github.com/actions/checkout) step makes existing content available to upload from a workflow.
 
 ## Expected outputs
 
@@ -172,7 +176,6 @@ https://github.com/slackapi/slack-github-action/blob/main/example-workflows/Tech
 <summary><strong>Invite a usergroup to channel</strong></summary>
 
 This workflow creates a channel after a bug is reported and add members of a usergroup by chaining multiple Slack API method calls together.
-
 
 ```js reference
 https://github.com/slackapi/slack-github-action/blob/main/example-workflows/Technique_2_Slack_API_Method/invite.yml
