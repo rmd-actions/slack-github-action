@@ -46,7 +46,7 @@
     "@actions/github": "^9.1.1",
     "@slack/logger": "^4.0.1",
     "@slack/web-api": "^7.16.0",
-    "axios": "^1.16.0",
+    "axios": "^1.18.1",
     "axios-retry": "^4.5.0",
     "flat": "^6.0.1",
     "https-proxy-agent": "^9.0.0",
@@ -54,15 +54,15 @@
     "markup-js": "^1.5.21"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.16",
+    "@biomejs/biome": "^2.5.1",
     "@changesets/cli": "^2.31.0",
     "@types/flat": "^5.0.5",
     "@types/js-yaml": "^4.0.9",
     "@types/markup-js": "^1.5.0",
-    "@types/node": "^24.12.4",
+    "@types/node": "^24.13.2",
     "@types/sinon": "^21.0.0",
     "@vercel/ncc": "^0.38.4",
     "sinon": "^21.0.3",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   }
 }
