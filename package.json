@@ -45,25 +45,25 @@
     "@actions/core": "^3.0.1",
     "@actions/github": "^9.1.1",
     "@slack/logger": "^5.0.0",
-    "@slack/web-api": "^8.0.0",
-    "@slack/webhook": "^8.0.0",
+    "@slack/web-api": "^8.1.1",
+    "@slack/webhook": "^8.0.2",
     "flat": "^6.0.1",
-    "js-yaml": "^5.2.2",
+    "js-yaml": "^5.4.2",
     "markup-js": "^1.5.21",
-    "undici": "^8.9.0"
+    "undici": "^8.11.2"
   },
   "overrides": {
     "undici-types": "$undici"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.6",
-    "@changesets/cli": "^3.0.0",
+    "@biomejs/biome": "^2.5.14",
+    "@changesets/cli": "^3.0.3",
     "@types/flat": "^5.0.5",
     "@types/js-yaml": "^4.0.9",
     "@types/markup-js": "^1.5.0",
-    "@types/node": "^24.13.2",
+    "@types/node": "^24.19.0",
     "@types/sinon": "^22.0.0",
-    "@vercel/ncc": "^0.44.1",
+    "@vercel/ncc": "^0.45.0",
     "sinon": "^22.1.0",
     "typescript": "^7.0.2"
   }
