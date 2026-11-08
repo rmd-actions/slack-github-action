@@ -13,7 +13,7 @@ jobs:
     name: Changelog
     runs-on: ubuntu-latest
     outputs:
-      hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}
+      hasChangesets: ${{ steps.changesets.outputs.has-changesets }}
       releaseExists: ${{ steps.published.outputs.exists }}
     permissions:
       contents: write
@@ -25,7 +25,7 @@ jobs:
           persist-credentials: true
 
       - name: Setup Node
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           cache: npm
           cache-dependency-path: package-lock.json
@@ -36,18 +36,17 @@ jobs:
 
       - name: Update release PR
         id: changesets
-        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
-          commit: "chore: release"
-          prDraft: create
-          title: "chore: release"
-          version: npm run version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: release"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-draft: create
+          pr-title: "chore: release"
+          version-script: npm run version
 
       - name: Check if publish is needed
         id: published
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.changesets.outputs.has-changesets == 'false'
         run: |
           VERSION=$(node -p "require('./package.json').version")
           if gh release view "v${VERSION}" &>/dev/null; then
@@ -69,7 +68,7 @@ jobs:
     steps:
       - name: Gather credentials
         id: credentials
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
           client-id: ${{ secrets.GH_APP_CLIENT_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
@@ -84,7 +83,7 @@ jobs:
           token: ${{ steps.credentials.outputs.token }}
 
       - name: Setup Node
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           cache: npm
           cache-dependency-path: package-lock.json
