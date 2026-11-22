@@ -27,7 +27,7 @@ Add the collected webhook from above to a GitHub workflow and configure the step
 
 ```yaml
 - name: Post a message in a channel
-  uses: slackapi/slack-github-action@v4.0.0
+  uses: slackapi/slack-github-action@v4.1.0
   with:
     webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
     webhook-type: incoming-webhook
@@ -46,11 +46,11 @@ The technique, like all Slack Github Action techniques, [outputs values](https:/
 
 The following outputs are returned with each of the techniques:
 
-| Output | Type  | Description|
-|---|---|---|
-|`time` | `number` | The Unix [epoch time](https://en.wikipedia.org/wiki/Unix_time) that the step completed.
-| `ok` | `boolean` | If the request completed with success.
-| `response` | `string` | The [response](/apis/web-api/#responses) from the request as stringified JSON.
+| Output     | Type      | Description                                                                             |
+| ---------- | --------- | --------------------------------------------------------------------------------------- |
+| `time`     | `number`  | The Unix [epoch time](https://en.wikipedia.org/wiki/Unix_time) that the step completed. |
+| `ok`       | `boolean` | If the request completed with success.                                                  |
+| `response` | `string`  | The [response](/apis/web-api/#responses) from the request as stringified JSON.          |
 
 ## Example workflows
 

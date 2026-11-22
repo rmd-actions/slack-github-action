@@ -25,7 +25,7 @@ Posting a message with the [`chat.postMessage`](/reference/methods/chat.postMess
 
 ```yaml
 - name: Post text to a Slack channel
-  uses: slackapi/slack-github-action@v4.0.0
+  uses: slackapi/slack-github-action@v4.1.0
   with:
     method: chat.postMessage
     token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -40,7 +40,7 @@ More complex message layouts, such as messages made with [Block Kit](/block-kit/
 
 ```yaml
 - name: Post blocks to a Slack channel
-  uses: slackapi/slack-github-action@v4.0.0
+  uses: slackapi/slack-github-action@v4.1.0
   with:
     method: chat.postMessage
     token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -61,7 +61,7 @@ Updating a message after it's posted can be done with the [`chat.update`](/refer
 ```yaml
 - name: Initiate the deployment launch sequence
   id: launch_sequence
-  uses: slackapi/slack-github-action@v4.0.0
+  uses: slackapi/slack-github-action@v4.1.0
   with:
     method: chat.postMessage
     token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -77,7 +77,7 @@ Updating a message after it's posted can be done with the [`chat.update`](/refer
 - name: Countdown until launch
   run: sleep 10
 - name: Update the original message with success
-  uses: slackapi/slack-github-action@v4.0.0
+  uses: slackapi/slack-github-action@v4.1.0
   with:
     method: chat.update
     token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -99,7 +99,7 @@ Posting [threaded replies to a message](/messaging/#threading) from a past job c
 
 ```yaml
 - name: Initiate a deployment
-  uses: slackapi/slack-github-action@v4.0.0
+  uses: slackapi/slack-github-action@v4.1.0
   id: deployment_message
   with:
     method: chat.postMessage
@@ -108,7 +108,7 @@ Posting [threaded replies to a message](/messaging/#threading) from a past job c
       channel: ${{ secrets.SLACK_CHANNEL_ID }}
       text: "Deployment started :eyes:"
 - name: Conclude the deployment
-  uses: slackapi/slack-github-action@v4.0.0
+  uses: slackapi/slack-github-action@v4.1.0
   with:
     method: chat.postMessage
     token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -126,7 +126,7 @@ Calling [a Slack API method](/reference/methods) with [`@slack/web-api`](/tools/
 - name: Checkout an imagined project
   uses: actions/checkout@v7
 - name: Share a file to that channel
-  uses: slackapi/slack-github-action@v4.0.0
+  uses: slackapi/slack-github-action@v4.1.0
   with:
     method: files.uploadV2
     token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -145,19 +145,19 @@ The technique, like all Slack Github Action techniques, [outputs values](https:/
 
 The following outputs are returned with each of the techniques:
 
-| Output | Type  | Description|
-|---|---|---|
-|`time` | `number` | The Unix [epoch time](https://en.wikipedia.org/wiki/Unix_time) that the step completed.
-| `ok` | `boolean` | If the request completed with success.
-| `response` | `string` | The [response](/apis/web-api/#responses) from the request as stringified JSON.
+| Output     | Type      | Description                                                                             |
+| ---------- | --------- | --------------------------------------------------------------------------------------- |
+| `time`     | `number`  | The Unix [epoch time](https://en.wikipedia.org/wiki/Unix_time) that the step completed. |
+| `ok`       | `boolean` | If the request completed with success.                                                  |
+| `response` | `string`  | The [response](/apis/web-api/#responses) from the request as stringified JSON.          |
 
 While these outputs are returned with certain Slack API methods:
 
-| Output | Type  | Description|
-|---|---|---|
-|`channel_id` | `string` | The [channel ID](/reference/objects/conversation-object) included in the response.
-| `ts`| `string` | The [timestamp](/messaging/retrieving-messages#individual_messages) of the Slack event or message.
-| `thread_ts` | `string` | The [timestamp](/messaging/retrieving-messages#individual_messages) of a parent Slack message with [threaded replies](/messaging/retrieving-messages#pulling_threads).
+| Output       | Type     | Description                                                                                                                                                            |
+| ------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `channel_id` | `string` | The [channel ID](/reference/objects/conversation-object) included in the response.                                                                                     |
+| `ts`         | `string` | The [timestamp](/messaging/retrieving-messages#individual_messages) of the Slack event or message.                                                                     |
+| `thread_ts`  | `string` | The [timestamp](/messaging/retrieving-messages#individual_messages) of a parent Slack message with [threaded replies](/messaging/retrieving-messages#pulling_threads). |
 
 ## Example workflows
 
